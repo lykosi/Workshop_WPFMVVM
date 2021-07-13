@@ -1,0 +1,47 @@
+﻿<Window x:Class="WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Name="mainStack">
+                <TabControl Name="tabControl" Height="326" Margin="12" Width="638" FlowDirection="LeftToRight" TabStripPlacement="Top" >
+                    <TabItem Name="CompteurPanel" Header="Compteur panel">
+                        <ContentControl Name="Compteur"></ContentControl>
+                    </TabItem>
+                    <TabItem Name="RecherchePanel" Header="Recherche panel">
+                        <ContentControl Name="Recherche"></ContentControl>
+                    </TabItem>
+                </TabControl>
+                <TextBlock Text="{Binding PropertyString}"/>
+                <TextBox Text="{Binding PropertyString, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Content="Click" Command="{Binding EditProperty}"/>
+                <Label Content="#------------------------------------------------#" HorizontalAlignment="Center"/>
+                <Button Content="Add" Command="{Binding AddList}"/>
+                <Button Content="Edit first" Command="{Binding EditFirstList}"/>
+                <Button Content="Delete first" Command="{Binding DeleteFirstList}"/>
+                <Button Content="Delete" Command="{Binding DeleteList}"/>
+                <ListBox ItemsSource="{Binding PropertyList}" SelectedIndex ="{Binding PropertyListIndex}"/>
+                <Label Content="#------------------------------------------------#" HorizontalAlignment="Center"/>
+                <Button Content="Maj" Command="{Binding MajProperty}"/>
+                <TextBlock Text="{Binding PropertyInt}" HorizontalAlignment="Center" Foreground="{Binding PropertyInt, Converter={StaticResource IntToColor}}"/>
+                <Label Content="#------------------------------------------------#" HorizontalAlignment="Center"/>
+                <Button Content="Add" Command="{Binding AddMessage}"/>
+                <Button Content="Delete" Command="{Binding DeleteMessage}"/>
+                <ListBox ItemsSource="{Binding MessageList}" SelectedIndex ="{Binding MessageIndex}"/>
+                <Label Content="#------------------------------------------------#" HorizontalAlignment="Center"/>
+                <ListBox ItemsSource="{Binding MessageList}" ItemTemplate="{DynamicResource ListItemTemplate}"/>
+                <Label Content="#------------------------------------------------#" HorizontalAlignment="Center"/>
+                <ListBox ItemsSource="{Binding ImageList}" ItemTemplate="{DynamicResource ListImageTemplate}"/>
+                <Label Content="#------------------------------------------------#" HorizontalAlignment="Center"/>
+                <Label Style="{DynamicResource labelBlue}" Content="Label" HorizontalAlignment="Center"/>
+                <Label Content="#------------------------------------------------#" HorizontalAlignment="Center"/>
+                <Button Name="SimpleButton" Content="Click" Template="{StaticResource CircleTemplateButton}"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

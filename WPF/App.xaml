@@ -1,0 +1,47 @@
+﻿<!-- 
+    - Sur la liste de message afficher avec un ItemTemplate pour que chaque propriété s’affiche d’une couleur différente avec un Converter pour la date
+    - Sur cette même liste mettre en plus un bouton pour chaque élément pour supprimer l’élément
+    - Créer une liste de string qui contient des chemins vers des images dans votre projet et les afficher dans une ListBox ou une ComboBox grâce à un template
+-->
+<Application x:Class="WPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:WPF" xmlns:converter="clr-namespace:WPF.Converter"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <converter:IntToColor x:Key="IntToColor"/>
+        <converter:DateToString x:Key="DateToString"/>
+        <DataTemplate x:Key="ListItemTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Contenu}" Foreground="Red"/>
+                <TextBlock Text="{Binding Emetteur}" Foreground="Brown" />
+                <TextBlock Text="{Binding Date, Converter={StaticResource DateToString}}" Foreground="Blue" />
+                <!-- CommandParameter me retourne ici mon objet message (.), ainsi dans ma commande Delete dans le MainViewModel je pourrai supprimer les lignes aux boutons associé -->
+                <Button Content="Remove" Command="{Binding DataContext.Delete, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Mode=OneWay}" CommandParameter="{Binding .}"/>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="ListImageTemplate">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{Binding Path}"/>
+            </StackPanel>
+        </DataTemplate>
+        <Style x:Key="labelBlue" TargetType="{x:Type Label}" >
+            <Setter Property="Foreground" Value="Blue"/>
+            <Setter Property="Background" Value="Gray"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Red"/>
+                </Trigger>
+            </Style.Triggers>        </Style>        <ControlTemplate x:Key="CircleTemplateButton" TargetType="{x:Type Button}">
+            <Grid Width="100" Height="100" Margin="5">
+                <Ellipse Stroke="Black" x:Name="SimpleButton" Fill="Green"/>
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="SimpleButton" Property="Fill" Value="Blue"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Application.Resources>
+</Application>
